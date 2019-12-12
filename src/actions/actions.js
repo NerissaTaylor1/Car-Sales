@@ -4,11 +4,11 @@ export const REMOVE_FEATURE = "REMOVE_FEATURE";
 
 //action creator
 
-export const buyItem = addItem => {
+export const buyItem = item => {
     //action
-    return { type: 'BUY_ITEM', payload: addItem };
+    return { type: 'BUY_ITEM', payload: item };
 };
 
-export const removeFeature = () => {
-
+export const removeFeature = feature => {
+    return { type: 'REMOVE_FEATURE', payload: feature }
 }

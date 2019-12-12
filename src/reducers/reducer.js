@@ -1,5 +1,4 @@
 const initialState = {
-
     additionalPrice: 0,
     car: {
         price: 26395,
@@ -17,15 +16,32 @@ const initialState = {
 };
 
 export const reducer = (state = initialState, action) => {
-    console.log(state, action);
+
     switch (action.type) {
         case "BUY_ITEM":
             return {
                 ...state,
-                additionalPrice: state.additionalFeatures + action.payload.price
+                additionalPrice: (state.additionalPrice + action.payload.price),
+                car: { ...state.car, features: [...state.car.features, action.payload] },
+
+                additionalFeatures: state.additionalFeatures.filter((feature) => {
+                    return feature.id !== action.payload;
+                })
+
+
+
             }
         case "REMOVE_FEATURE":
-            return {}
+            return {
+                ...state,
+                additionalPrice: (state.additionalPrice - action.payload.price),
+                car: {
+                    ...state.car, features: state.car.features.filter(feature => {
+                        return feature.id !== action.payload.id
+                    })
+                },
+                additionalFeatures: [...state.additionalFeatures, action.payload]
+            }
 
         default:
             return state;
